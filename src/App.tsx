@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Countdown, { CountdownEnum } from './components/countdown';
+import { DEFAULT_COUNTDOWN_TIME } from './configs';
+import * as S from './styles/containers';
+import { PlayIcon } from './styles/icons';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <S.Container>
+        <Countdown initialCountdown={DEFAULT_COUNTDOWN_TIME} initialStep={CountdownEnum.Values.Stoped}/>
+      </S.Container>
     </div>
   );
 }

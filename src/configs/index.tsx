@@ -1,0 +1,1 @@
+export const DEFAULT_COUNTDOWN_TIME = 60 * 25;
