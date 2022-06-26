@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { workerData } from 'worker_threads';
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { convertSecondsToString } from '../../utils';
 import * as S from './styles';
 
@@ -8,6 +7,19 @@ export enum StepEnum {
   Stoped,
   ShortBreak,
   LongBreak,
+};
+
+export const useStepColor = (initialStep: StepEnum): [string, StepEnum, Dispatch<SetStateAction<StepEnum>>] => {
+  const [stepState, setStepState] = useState<StepEnum>(() => initialStep);
+  
+  const color = useMemo(() => ({
+    Working: '#F67280',
+    Stoped: '#F8B184',
+    ShortBreak: '#D6F8B8',
+    LongBreak: '#ACDEAA',
+  }[StepEnum[stepState]]) as string, [stepState]);
+
+  return [color, stepState, setStepState];
 };
 
 interface ICountdownProps {
@@ -28,7 +40,7 @@ export default ({
     longBreakCountdown,
   }: ICountdownProps) => {
   const [countdown, setCountdown] = useState<number>(initialCountdown);
-  const [step, setStep] = useState<StepEnum>(initialStep);
+  const [color, step, setStep] = useStepColor(initialStep);
   const [cycle, setCycle] = useState<number>(shortBreakCycle);
 
   useEffect(() => {
@@ -54,7 +66,7 @@ export default ({
   }, [countdown, initialStep]);
 
   return (
-    <S.Countdown fontSize={8} background="#FF8989"  >
+    <S.Countdown fontSize={8} background={color}  >
       <span>{convertSecondsToString(countdown)}</span>
     </S.Countdown>
   );

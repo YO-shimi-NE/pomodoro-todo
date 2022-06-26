@@ -11,12 +11,12 @@ function App() {
       <S.Container>
         <Countdown
           initialStep={StepEnum.Working}
-          shortBreakCountdown={5}
-          initialCountdown={10}
-          shortBreakCycle={1}
-          workCountdown={15}
-          longBreakCountdown={35}
-          />
+          shortBreakCountdown={5 * 60}
+          initialCountdown={DEFAULT_COUNTDOWN_TIME}
+          shortBreakCycle={3}
+          workCountdown={DEFAULT_COUNTDOWN_TIME}
+          longBreakCountdown={15 * 60}
+        />
       </S.Container>
     </div>
   );
